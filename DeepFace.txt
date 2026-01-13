@@ -1,0 +1,38 @@
+📄 PROJETO: Sistema de Biometria Facial Híbrida (C# & DeepFace)
+1. Visão Geral O sistema utiliza uma arquitetura híbrida para realizar o reconhecimento facial. A interface e a lógica de negócio são gerenciadas em C# (.NET 8), enquanto o processamento de inteligência artificial é realizado pela biblioteca DeepFace em Python, utilizando o modelo Facenet512.
+
+2. Componentes da API DeepFace
+
+Modelo Utilizado: Facenet512 (Google). Analisa 512 pontos característicos do rosto.
+
+Back-end de Detecção: OpenCV (detecta o rosto antes de comparar).
+
+Métrica de Similaridade: Cosseno (mede o ângulo entre os vetores faciais).
+
+Função Principal: DeepFace.verify (realiza detecção, alinhamento e comparação em um único fluxo).
+
+3. Arquitetura de Implementação
+
+Integração: O C# utiliza a classe System.Diagnostics.Process para disparar o script Python.
+
+Comunicação: O Python processa as imagens e retorna um objeto JSON.
+
+Tratamento de Dados: O C# deserializa o JSON para uma classe de objeto, permitindo exibir métricas como distância, confiança e tempo de resposta.
+
+4. Como Rodar o Projeto
+
+Pré-requisitos: Python 3.10+ instalado e suporte a caminhos longos ativado no Windows.
+
+Instalação de Bibliotecas: pip install deepface tf-keras opencv-python
+
+Configuração: As imagens devem estar na pasta /Images e o arquivo facenet512_weights.h5 deve estar na pasta .deepface/weights do usuário.
+
+Execução: Comando dotnet run na pasta raiz do projeto.
+
+5. Interpretação de Resultados (Métricas)
+
+Verified (Booleano): Indica se a identidade foi confirmada.
+
+Distance (Distância): Quão diferentes são os rostos. No Facenet512, o limite seguro é 0.30. Valores abaixo disso indicam sucesso.
+
+Confidence (Confiança): Grau de certeza da IA sobre a correspondência.
