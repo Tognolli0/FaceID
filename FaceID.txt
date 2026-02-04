@@ -1,0 +1,31 @@
+📄 RESUMO EXECUTIVO: SISTEMA DE BIOMETRIA FACIAL HÍBRIDO
+
+1. ARQUITETURA DO SISTEMA O sistema utiliza uma abordagem híbrida que combina a robustez da linguagem C# (.NET 8) para a interface e lógica de decisão, com o poder da inteligência artificial do DeepFace (Python) para o processamento biométrico. A comunicação entre as linguagens ocorre via captura de fluxos JSON em tempo real.
+
+2. O MOTOR DE IA: FACENET512 O modelo escolhido para este projeto foi o Facenet512, desenvolvido por pesquisadores do Google.
+
+    Embeddings: A IA transforma a face em um vetor matemático de 512 dimensões.
+
+    Representação: Diferente de sistemas simples, o Facenet512 analisa detalhes microscópicos da estrutura óssea e proporções faciais, tornando-o resistente a mudanças de iluminação ou uso de acessórios simples.
+
+3. O CÁLCULO MATEMÁTICO (DISTÂNCIA DE COSSENO) A confirmação de identidade não é baseada em uma "comparação de pixels", mas sim em cálculo vetorial:
+
+    Métrica: Utilizamos a Distância de Cosseno para medir o ângulo entre o vetor da "Foto Original" e o vetor da "Foto Atual".
+
+    Ponto de Corte (Threshold): Definido em 0.30.
+
+        Valores abaixo de 0.30 = Mesma pessoa (Acesso Permitido).
+
+        Valores acima de 0.30 = Pessoas diferentes (Acesso Negado).
+
+4. INTERPRETAÇÃO DOS RESULTADOS NO RELATÓRIO
+
+    Distância Facial (Ex: 0.22): Indica a proximidade matemática entre os rostos. Quanto menor, mais parecidos.
+
+    Margem de Confiança/Precisão: Indica o percentual de "folga" que o usuário teve em relação ao limite de erro. Estar 25% abaixo do limite (threshold) é considerado um índice de segurança biométrica de alto nível.
+
+5. VANTAGENS DESTA IMPLEMENTAÇÃO
+
+    Escalabilidade: A separação entre interface (C#) e motor (Python) permite atualizar o modelo de IA futuramente sem precisar reescrever o sistema inteiro.
+
+    Segurança: O uso de um threshold rigoroso (0.30) minimiza drasticamente a chance de "Falsos Positivos".
